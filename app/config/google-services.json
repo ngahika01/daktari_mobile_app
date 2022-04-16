@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "929242092788",
+    "project_id": "daktari-17552",
+    "storage_bucket": "daktari-17552.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:929242092788:android:047a5472e07ad15ae7baa1",
+        "android_client_info": {
+          "package_name": "com.mykesoftware.daktari"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "929242092788-r0c58tosearfs5lqdt0i0d82r1js2tlv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.mykesoftware.daktari",
+            "certificate_hash": "1aa77f75794dca9717f9aa339a76259a240b3968"
+          }
+        },
+        {
+          "client_id": "929242092788-tmen3hjujebdndm8jnht4k6ep2o690ig.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD3ZbvEvFfCvrjLCX1OcVHEUSB4xNYYdmg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "929242092788-tmen3hjujebdndm8jnht4k6ep2o690ig.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
