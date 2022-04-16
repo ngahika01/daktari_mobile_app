@@ -10,11 +10,14 @@ import {
 import { auth, db } from "../config/firebase";
 
 const userAuthContext = createContext();
+
 export function UserAuthContextProvider({ children }) {
   const [user, setUser] = useState("");
+
   function signUp(email, password, isAdmin) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
+
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
   }
@@ -26,6 +29,7 @@ export function UserAuthContextProvider({ children }) {
     const googleProvider = new GoogleAuthProvider();
     return signInWithPopup(auth, googleProvider);
   }
+
   useEffect(() => {
     const unsub = onAuthStateChanged(auth, (user) => {
       setUser(user);

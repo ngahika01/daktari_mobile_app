@@ -8,6 +8,7 @@ import {
 
 import ProfileScreen from "../screens/ProfileScreen";
 import FeedNav from "./FeedNav";
+import PatientScreen from "../screens/PatientScreen";
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -47,7 +48,7 @@ export default function MyTabs() {
           ),
         }}
       /> */}
-      {/* <Tab.Screen
+      <Tab.Screen
         name="patients"
         component={PatientScreen}
         options={{
@@ -56,7 +57,7 @@ export default function MyTabs() {
             <MaterialCommunityIcons name="doctor" color={color} size={24} />
           ),
         }}
-      /> */}
+      />
       <Tab.Screen
         name="logout"
         component={ProfileScreen}
