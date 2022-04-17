@@ -12,18 +12,18 @@ import {
 import { useNavigation, useRoute } from "@react-navigation/native";
 import { io } from "socket.io-client";
 import axios from "axios";
+import { useUserAuth } from "../context/UserAuthContext";
 const socket = io("http://192.168.226.85:5000", { transports: ["websocket"] });
 
 const PaymentScreen = () => {
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState(null);
-  const [payment, setPayment] = React.useState(null);
 
   const { colors } = useTheme();
 
   const route = useRoute();
-  //   const records = route.params.record;
-  console.log(route.params);
+  const { patient, amount } = route.params;
+
   const navigation = useNavigation();
   //   console.log(records);
   socket.on("querying", (data) => {
@@ -35,14 +35,15 @@ const PaymentScreen = () => {
     setLoading(false);
   });
 
+  const { user } = useUserAuth();
+
   React.useEffect(() => {
     if (data === "Request cancelled by user") {
       setData(null);
       alert(
         "Request cancelled by user.The user must confirm the payment to print a receipt"
       );
-    }
-    if (data === "The initiator information is invalid.") {
+    } else if (data === "The initiator information is invalid.") {
       setData(null);
       alert(
         "Request cancelled by user.The user must confirm the payment to print a receipt"
@@ -50,12 +51,12 @@ const PaymentScreen = () => {
     } else if (data === "The service request is processed successfully.") {
       setData(null);
       alert("Payment successful.");
-      navigation.navigate("receipt");
+      navigation.navigate("receipt", {
+        patient,
+        amount,
+      });
     }
-    setPayment(route.params.record.data());
   }, [navigation, data]);
-
-  console.log(payment);
 
   const handlePress = async (phoneNumber) => {
     const url = "http://192.168.226.85:5000";
@@ -70,6 +71,7 @@ const PaymentScreen = () => {
       console.log(error);
     }
   };
+
 
   return (
     <SafeAreaView
@@ -116,7 +118,7 @@ const PaymentScreen = () => {
         <Button
           mode="contained"
           onPress={() => {
-            handlePress(729842998);
+            handlePress(patient.phoneNumber);
           }}
           disabled={loading}
           style={{ margin: 10 }}

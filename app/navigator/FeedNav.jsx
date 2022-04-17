@@ -9,6 +9,7 @@ import PatientDetails from "../screens/PatientDetails";
 import EditPatient from "../screens/EditPatient";
 import CreateRecords from "../screens/CreateRecords";
 import PaymentScreen from "../screens/PaymentScreen";
+import Receipt from "../screens/Receipt";
 
 const Stack = createNativeStackNavigator();
 const FeedNav = () => {
@@ -49,6 +50,11 @@ const FeedNav = () => {
           name="payment"
           options={{ headerShown: false }}
           component={PaymentScreen}
+        />
+        <Stack.Screen
+          name="receipt"
+          options={{ headerShown: false }}
+          component={Receipt}
         />
       </Stack.Navigator>
     </SafeAreaProvider>

@@ -61,13 +61,16 @@ const CreateRecords = () => {
         dateOfNextAppointment,
         medication,
         image,
-        amount,
+        amount: parseInt(amount),
+        phoneNumber: parseInt(patient.phoneNumber),
       });
 
       if (record) {
         alert("Admission created successfully.");
+
         navigation.navigate("payment", {
-          record,
+          patient: patient,
+          amount: parseInt(amount),
         });
       }
     } catch (error) {
