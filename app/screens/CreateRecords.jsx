@@ -67,7 +67,7 @@ const CreateRecords = () => {
       if (record) {
         alert("Admission created successfully.");
         navigation.navigate("payment", {
-          record:record,
+          record,
         });
       }
     } catch (error) {

@@ -17,20 +17,19 @@ const socket = io("http://192.168.226.85:5000", { transports: ["websocket"] });
 const PaymentScreen = () => {
   const [loading, setLoading] = React.useState(false);
   const [data, setData] = React.useState(null);
+  const [payment, setPayment] = React.useState(null);
 
   const { colors } = useTheme();
 
   const route = useRoute();
   //   const records = route.params.record;
-
+  console.log(route.params);
   const navigation = useNavigation();
   //   console.log(records);
   socket.on("querying", (data) => {
     setLoading(true);
   });
-  socket.on("message", (message) => {
-    console.log(`message from ${socket.id} : ${message}`);
-  });
+
   socket.on("queried", (data) => {
     setData(data);
     setLoading(false);
@@ -53,7 +52,10 @@ const PaymentScreen = () => {
       alert("Payment successful.");
       navigation.navigate("receipt");
     }
+    setPayment(route.params.record.data());
   }, [navigation, data]);
+
+  console.log(payment);
 
   const handlePress = async (phoneNumber) => {
     const url = "http://192.168.226.85:5000";
@@ -97,8 +99,6 @@ const PaymentScreen = () => {
             color={colors.primary}
             style={{
               flex: 1,
-              top: "50%",
-              left: "50%",
             }}
           />
         )}
@@ -118,6 +118,7 @@ const PaymentScreen = () => {
           onPress={() => {
             handlePress(729842998);
           }}
+          disabled={loading}
           style={{ margin: 10 }}
         >
           Request payment from user.

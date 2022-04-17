@@ -4,6 +4,7 @@ import DateTimePicker from "@react-native-community/datetimepicker";
 import InputComponent from "./InputComponent";
 import { HelperText, TextInput } from "react-native-paper";
 import { useFormikContext } from "formik";
+import moment from "moment";
 
 export default function DatePickerComponent({ label, mt, mb }) {
   const [date, setDate] = useState(new Date());
@@ -42,8 +43,8 @@ export default function DatePickerComponent({ label, mt, mb }) {
         />
       )}
       <TextInput
-        onChangeText={(text) => setDate(text)}
-        value={date.toLocaleDateString()}
+        onChangeText={(text) => setDate(moment(text).toDate())}
+        value={moment(date).format("MM/DD/YYYY")}
         label={label}
         mode="outlined"
         style={{ marginTop: mt, marginBottom: mb }}

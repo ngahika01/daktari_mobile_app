@@ -16,11 +16,6 @@ const FeedNav = () => {
     <SafeAreaProvider>
       <Stack.Navigator initialRouteName="login">
         <Stack.Screen
-          name="payment"
-          options={{ headerShown: false }}
-          component={PaymentScreen}
-        />
-        <Stack.Screen
           name="myhome"
           options={{ headerShown: false }}
           component={HomeScreen}
@@ -49,6 +44,11 @@ const FeedNav = () => {
           name="createRecords"
           options={{ headerShown: false }}
           component={CreateRecords}
+        />
+        <Stack.Screen
+          name="payment"
+          options={{ headerShown: false }}
+          component={PaymentScreen}
         />
       </Stack.Navigator>
     </SafeAreaProvider>
