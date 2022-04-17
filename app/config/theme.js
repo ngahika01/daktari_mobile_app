@@ -13,6 +13,10 @@ const theme = {
     placeholder: "#5C5C5C",
     text: "#5C5C5C",
     warning: "#ffcc00",
+    danger: "#ff0000",
+    //green
+
+    success: "#4bb543",
   },
   animation: {
     scale: 1.0,

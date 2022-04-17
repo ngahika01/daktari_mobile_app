@@ -1,7 +1,7 @@
 import { StyleSheet, View, ImageBackground } from "react-native";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Appbar, Button, Text, useTheme } from "react-native-paper";
+import { Appbar, Button, DataTable, Text, Title, useTheme } from "react-native-paper";
 import { useNavigation } from "@react-navigation/native";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "../config/firebase";
@@ -82,6 +82,24 @@ const HomeScreen = () => {
             Create New Patient
           </Button>
         </View>
+        <Title>Users List</Title>
+
+        <DataTable
+          style={{
+            backgroundColor: colors.background,
+          }}
+        >
+          <DataTable.Header>
+            <DataTable.Title>Email</DataTable.Title>
+            <DataTable.Title>Duty</DataTable.Title>
+          </DataTable.Header>
+          {users.map((user) => (
+            <DataTable.Row key={user.id}>
+              <DataTable.Cell>{user.email}</DataTable.Cell>
+              <DataTable.Cell>{user.role}</DataTable.Cell>
+            </DataTable.Row>
+          ))}
+        </DataTable>
       </ImageBackground>
     </SafeAreaView>
   );

@@ -40,7 +40,6 @@ const PatientScreen = () => {
     }
     fetchPatients();
   }, []);
-  console.log(patients);
 
   return (
     <SafeAreaView

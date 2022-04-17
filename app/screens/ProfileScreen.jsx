@@ -14,6 +14,7 @@ import { useNavigation } from "@react-navigation/native";
 import { useUserAuth } from "../context/UserAuthContext";
 import { collection, getDoc } from "firebase/firestore";
 import { db } from "../config/firebase";
+import moment from "moment";
 
 const ProfileScreen = () => {
   const [me, setMe] = React.useState(null);
@@ -28,15 +29,15 @@ const ProfileScreen = () => {
     navigation.navigate("logout");
   };
 
-  React.useEffect(() => {
-    async function fetchMe() {
-      const me = await getDoc(usersRef, user.uid);
-      setMe(me.data());
-    }
-    fetchMe();
-  }, [user]);
-  
-  console.log(me);
+  // React.useEffect(() => {
+  //   async function fetchMe() {
+  //     const me = await getDoc(usersRef, user.uid);
+  //     setMe(me.data());
+  //   }
+  //   fetchMe();
+  // }, [user]);
+
+  console.log(user.uid, "me");
   return (
     <SafeAreaView
       style={{
@@ -51,20 +52,27 @@ const ProfileScreen = () => {
         <View
           style={{
             flexDirection: "row",
-            justifyContent: "space-between",
             padding: 10,
+            justifyContent:"center",
             alignItems: "center",
+            flexWrap: "wrap",
           }}
         >
           <IconButton
             icon={"account-circle"}
             color={colors.primary}
-            size={80}
+            size={100}
           />
 
-          <Paragraph>{`${user.email}`}</Paragraph>
-          {/* last  login */}
-          {/* <Text>{`Last Login: ${user.lastLogin}`}</Text> */}
+          <Card.Content>
+            <Paragraph>{`${user.email}`}</Paragraph>
+            <Paragraph>
+              Phone number: {user.phoneNumber ? user.phoneNumber : "Not set in your email account"}
+            </Paragraph>
+            <Paragraph>{`Last Login: ${moment(user.lastLoginAt).format(
+              "h.mma"
+            )}`}</Paragraph>
+          </Card.Content>
         </View>
       </Card>
       <>

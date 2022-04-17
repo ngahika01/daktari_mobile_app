@@ -7,7 +7,7 @@ import {
 } from "react-native";
 import React, { useEffect } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Appbar, useTheme } from "react-native-paper";
+import { Appbar, Title, useTheme } from "react-native-paper";
 import { useNavigation, useRoute } from "@react-navigation/native";
 import * as Yup from "yup";
 import { addDoc, collection, getDocs } from "firebase/firestore";
@@ -18,6 +18,7 @@ import { gender } from "../data/data";
 import SubmitButton from "../components/form/SubmitButton";
 import { db } from "../config/firebase";
 import DatePickerComponent from "../components/form/DatePickerComponent";
+import ImagePickerComponent from "../components/form/ImagePicker";
 
 const validationSchema = Yup.object().shape({
   dateOfAdmission: Yup.string()
@@ -29,6 +30,7 @@ const validationSchema = Yup.object().shape({
     "Please enter date of next appointment"
   ),
   medication: Yup.string().required("Medication is required"),
+  amount: Yup.string().required("Amount is required"),
 });
 
 const CreateRecords = () => {
@@ -39,7 +41,7 @@ const CreateRecords = () => {
   const route = useRoute();
   const { patient } = route.params;
 
-  const admissionsRef = collection(db, "admissions");
+  const admissionsRef = collection(db, "records");
 
   const handleSubmit = async ({
     dateOfAdmission,
@@ -47,19 +49,27 @@ const CreateRecords = () => {
     dischargeDate,
     dateOfNextAppointment,
     medication,
+    image,
+    amount,
   }) => {
     try {
-      await addDoc(admissionsRef, {
+      const record = await addDoc(admissionsRef, {
         patient: patient.id,
         dateOfAdmission,
         illness,
         dischargeDate,
         dateOfNextAppointment,
         medication,
+        image,
+        amount,
       });
 
-      alert("Admission created successfully.");
-      navigation.navigate("admissions");
+      if (record) {
+        alert("Admission created successfully.");
+        navigation.navigate("payment", {
+          record:record,
+        });
+      }
     } catch (error) {
       alert(error.message);
     }
@@ -81,6 +91,8 @@ const CreateRecords = () => {
           flex: 1,
           padding: 10,
         }}
+        blurRadius={6}
+        fadeDuration={2000}
         source={require("../assets/doc.png")}
       >
         <ScrollView>
@@ -93,12 +105,23 @@ const CreateRecords = () => {
               dischargeDate: "",
               dateOfNextAppointment: "",
               medication: "",
+              amount: "",
+              image: "",
             }}
           >
             {
               <>
+                <Title
+                  style={{
+                    color: colors.primary,
+                  }}
+                >
+                  Admission Details
+                </Title>
+
                 <DatePickerComponent label={"dateOfAdmission"} />
                 <InputComponent
+                  returnKeyType="next"
                   label={"illness"}
                   keyboardType="default"
                   secureTextEntry={false}
@@ -117,8 +140,31 @@ const CreateRecords = () => {
                   keyboardType="default"
                   secureTextEntry={false}
                   multiline={true}
-                  numberOfLines={6}
+                  returnKeyType="next"
+                  numberOfLines={8}
                 />
+                <Title
+                  style={{
+                    color: colors.primary,
+                  }}
+                >
+                  Upload lab results and/or prescription(s)
+                </Title>
+                <ImagePickerComponent />
+                <Title
+                  style={{
+                    color: colors.primary,
+                  }}
+                >
+                  Amount Incurred
+                </Title>
+                <InputComponent
+                  secureTextEntry={false}
+                  label={"amount"}
+                  keyboardType="numeric"
+                  returnKeyType="done"
+                />
+
                 <SubmitButton
                   color={colors.primary}
                   icon="check"

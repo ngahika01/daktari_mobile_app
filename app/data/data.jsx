@@ -23,3 +23,14 @@ export const gender = [
     value: "Other",
   },
 ];
+
+export const paymentMethod = [
+  {
+    label: "Mpesa",
+    value: "Mpesa",
+  },
+  {
+    label: "Cash",
+    value: "cash",
+  },
+];

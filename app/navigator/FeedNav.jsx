@@ -8,12 +8,18 @@ import PatientScreen from "../screens/PatientScreen";
 import PatientDetails from "../screens/PatientDetails";
 import EditPatient from "../screens/EditPatient";
 import CreateRecords from "../screens/CreateRecords";
+import PaymentScreen from "../screens/PaymentScreen";
 
 const Stack = createNativeStackNavigator();
 const FeedNav = () => {
   return (
     <SafeAreaProvider>
       <Stack.Navigator initialRouteName="login">
+        <Stack.Screen
+          name="payment"
+          options={{ headerShown: false }}
+          component={PaymentScreen}
+        />
         <Stack.Screen
           name="myhome"
           options={{ headerShown: false }}
